@@ -2,8 +2,11 @@ import Select from "./template/Select";
 import {FaPlus} from "react-icons/fa";
 
 const Empleado = ({
-                      obj, catalogo, onChange, agregarEmpleado = () => {
-    }
+                      obj,
+                      catalogo,
+                      onChange,
+                      agregarEmpleado = () => {
+                      }
                   }) => {
     return (
         <div className="d-flex justify-content-start ms-5 mt-1">
