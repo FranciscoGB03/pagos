@@ -66,6 +66,12 @@ const Departamento = () => {
                 {(departamentos || []).map((dep, idx) =>
                     <div key={idx} className="me-2">
                         <div className="card p-2">
+                            <div className="d-flex justify-content-end">
+                                <button className="btn-close"
+                                    onClick={() => setDepartamentos(produce(departamentos, d => {
+                                    d.splice(idx, 1);}))}>
+                                </button>
+                            </div>
                             <div className="d-flex justify-content-start">
                                 <label htmlFor="departamento">Nombre del departamento:</label>
                                 <input value={dep.nombre}
