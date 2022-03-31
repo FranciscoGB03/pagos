@@ -22,7 +22,7 @@ function App() {
                 total += parseInt(dep.manager.pago);
                 dep.manager.empleados.forEach(emp => {
                     total += emp.pago
-                    emp.empleados.forEach(subemp=>total+=subemp.pago);
+                    emp.empleados.forEach(subemp => total += subemp.pago);
                 });
                 dep.total = total;
             });
@@ -53,64 +53,66 @@ function App() {
             </div>
             <div className="d-flex justify-content-center">
                 {(departamentos || []).map((dep, idx) =>
-                    <div key={idx} className="card">
-                        <div>
-                            <label htmlFor="departamento">Nombre del departamento:</label>
-                            <input value={dep.nombre}
-                                   id="departamento"
-                                   onChange={e => setDepartamentos(produce(departamentos, d => {
-                                       d[idx].nombre = e.target.value;
-                                   }))}/>
-                        </div>
-                        <div className="mt-1">
-                            <div className="d-flex justify-content-start">
-                                <label htmlFor="departamento">Nombre manager:</label>
-                                <input value={dep.manager.nombre}
+                    <div key={idx} className="me-2">
+                        <div className="card p-2">
+                            <div>
+                                <label htmlFor="departamento">Nombre del departamento:</label>
+                                <input value={dep.nombre}
+                                       id="departamento"
                                        onChange={e => setDepartamentos(produce(departamentos, d => {
-                                           d[idx].manager.nombre = e.target.value;
+                                           d[idx].nombre = e.target.value;
                                        }))}/>
-                                <div>${dep.manager.pago}</div>
-                                <div>
-                                    <TooltipHover texto="Agregar empleado">
-                                        <button className="btn btn-outline-info p-0"
-                                                onClick={() => agregarEmpleado(idx)}><FaPlus/></button>
-                                    </TooltipHover>
-                                </div>
                             </div>
-                            {(dep.manager.empleados || []).map((emp, idxEmp) =>
-                                <div key={idxEmp}>
-                                    <div className="d-flex justify-content-start">
-                                        <Select selected={emp.nombre}
-                                                options={EMPLEADOS}
-                                                idKey='nombre'
-                                                onSelect={e => setDepartamentos(produce(departamentos, d => {
-                                                    d[idx].manager.empleados[idxEmp].nombre = e.nombre;
-                                                    d[idx].manager.empleados[idxEmp].pago = e.pago;
-                                                }))}
-                                        />
-                                        <div>${emp.pago}</div>
-                                        {emp.nombre === 'Manager' &&
-                                        <button className="btn btn-outline-info p-0"
-                                                onClick={() => agregarSubempleado(idx, idxEmp)}><FaPlus/></button>
-                                        }
+                            <div className="mt-1">
+                                <div className="d-flex justify-content-start">
+                                    <label htmlFor="departamento">Nombre manager:</label>
+                                    <input value={dep.manager.nombre}
+                                           onChange={e => setDepartamentos(produce(departamentos, d => {
+                                               d[idx].manager.nombre = e.target.value;
+                                           }))}/>
+                                    <div>${dep.manager.pago}</div>
+                                    <div>
+                                        <TooltipHover texto="Agregar empleado">
+                                            <button className="btn btn-outline-info p-0"
+                                                    onClick={() => agregarEmpleado(idx)}><FaPlus/></button>
+                                        </TooltipHover>
                                     </div>
-                                    {emp.empleados.map((subemp,idxSubEmp)=>
-                                    <div className="d-flex justify-content-start" key={idxSubEmp}>
-                                        <Select selected={subemp.nombre}
-                                                options={EMPLEADOS}
-                                                idKey='nombre'
-                                                onSelect={e => setDepartamentos(produce(departamentos, d => {
-                                                    d[idx].manager.empleados[idxEmp].empleados[idxSubEmp].nombre = e.nombre;
-                                                    d[idx].manager.empleados[idxEmp].empleados[idxSubEmp].pago = e.pago;
-                                                }))}
-                                        />
-                                        <div>${subemp.pago}</div>
-                                    </div>
-                                    )}
                                 </div>
-                            )}
+                                {(dep.manager.empleados || []).map((emp, idxEmp) =>
+                                    <div key={idxEmp}>
+                                        <div className="d-flex justify-content-start">
+                                            <Select selected={emp.nombre}
+                                                    options={EMPLEADOS}
+                                                    idKey='nombre'
+                                                    onSelect={e => setDepartamentos(produce(departamentos, d => {
+                                                        d[idx].manager.empleados[idxEmp].nombre = e.nombre;
+                                                        d[idx].manager.empleados[idxEmp].pago = e.pago;
+                                                    }))}
+                                            />
+                                            <div>${emp.pago}</div>
+                                            {emp.nombre === 'Manager' &&
+                                            <button className="btn btn-outline-info p-0"
+                                                    onClick={() => agregarSubempleado(idx, idxEmp)}><FaPlus/></button>
+                                            }
+                                        </div>
+                                        {emp.empleados.map((subemp, idxSubEmp) =>
+                                            <div className="d-flex justify-content-start" key={idxSubEmp}>
+                                                <Select selected={subemp.nombre}
+                                                        options={EMPLEADOS}
+                                                        idKey='nombre'
+                                                        onSelect={e => setDepartamentos(produce(departamentos, d => {
+                                                            d[idx].manager.empleados[idxEmp].empleados[idxSubEmp].nombre = e.nombre;
+                                                            d[idx].manager.empleados[idxEmp].empleados[idxSubEmp].pago = e.pago;
+                                                        }))}
+                                                />
+                                                <div>${subemp.pago}</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            <div>Total: ${dep.total}</div>
                         </div>
-                        <div>Total: ${dep.total}</div>
                     </div>
                 )}
             </div>
