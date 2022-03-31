@@ -81,7 +81,9 @@ function App() {
                                 {(dep.manager.empleados || []).map((emp, idxEmp) =>
                                     <div key={idxEmp}>
                                         <div className="d-flex justify-content-start">
+                                            <div className='ms-5'> </div>
                                             <Select selected={emp.nombre}
+                                                    className="form-select-sm"
                                                     options={EMPLEADOS}
                                                     idKey='nombre'
                                                     onSelect={e => setDepartamentos(produce(departamentos, d => {
@@ -96,9 +98,11 @@ function App() {
                                             }
                                         </div>
                                         {emp.empleados.map((subemp, idxSubEmp) =>
-                                            <div className="d-flex justify-content-start" key={idxSubEmp}>
+                                            <div className="d-flex justify-content-start ms-5" key={idxSubEmp}>
+                                                <div className='ms-5'> </div>
                                                 <Select selected={subemp.nombre}
                                                         options={EMPLEADOS}
+                                                        className={`form-select-sm`}
                                                         idKey='nombre'
                                                         onSelect={e => setDepartamentos(produce(departamentos, d => {
                                                             d[idx].manager.empleados[idxEmp].empleados[idxSubEmp].nombre = e.nombre;
